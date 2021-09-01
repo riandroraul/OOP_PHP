@@ -1,22 +1,54 @@
 <?php 
 
-// protected = hanya bisa digunakan pada class parent dan turunannya (child)
-
-// private = hanya bisa digunakan pada class parent / class tertentu saja
-
 class Produk{
-	public $judul,
+	private $judul,
 	       $penulis,
-	       $penerbit;
+	       $penerbit,
+	       $harga;
 	protected $diskon = 0;
 
-	private $harga;
 
 	public function __construct($judul = "judul", $penulis = "penulis", $penerbit = "penerbit", $harga = 0){
 		$this->judul = $judul;
 		$this->penulis = $penulis;
 		$this->penerbit = $penerbit;
 		$this->harga = $harga;
+	}
+
+	public function setJudul($judul){
+		$this->judul = $judul;
+	}
+
+	public function getJudul(){
+		return $this->judul;
+	}
+
+	public function setPenulis($penulis){
+		$this->penulis = $penulis;
+	}
+
+	public function getPenulis(){
+		return $this->penulis;
+	}
+
+	public function setPenerbit($penerbit){
+		$this->penerbit = $penerbit;
+	}
+
+	public function getPenerbit($penerbit){
+		return $this->penerbit;
+	}
+
+	public function setPrice($harga){
+		$this->harga = $harga;
+	}
+
+	public function setDiskon($diskon){
+		$this->diskon = $diskon;
+	}
+
+	public function getPrice(){
+		return $this->harga - ($this->harga * $this->diskon /100);
 	}
 
 	public function getLabel(){
@@ -28,9 +60,6 @@ class Produk{
 		return $str;
 	}
 
-	public function getPrice(){
-		return $this->harga - ($this->harga * $this->diskon /100);
-	}
 
 }
 
@@ -59,9 +88,7 @@ class Game extends Produk{
 		$str = "Game : ". parent::getProductInfo() ." ~ {$this->jamMain} Jam";
 		return $str;
 	}
-	public function setDiskon($diskon){
-		$this->diskon = $diskon;
-	}
+	
 }
 
 class printProductInfo{
@@ -89,5 +116,9 @@ echo "Harga Game : {$produk1->getPrice()}";
 echo"<br>";
 $produk1->setDiskon(50); //50%
 echo "<hr>";
-echo "Harga Game : {$produk1->getPrice()}";
+echo "Harga Game + Diskon : {$produk1->getPrice()}";
+
+$produk1->setJudul("Judul Baru");
+echo "<hr>";
+echo $produk1->getJudul();
 
